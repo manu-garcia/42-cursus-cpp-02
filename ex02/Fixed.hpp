@@ -14,6 +14,14 @@ public:
     ~Fixed();
 
     Fixed &operator=(const Fixed &fixed);
+
+    bool operator>(const Fixed &fixed) const;
+    bool operator<(const Fixed &fixed) const;
+    bool operator>=(const Fixed &fixed) const;
+    bool operator<=(const Fixed &fixed) const;
+    bool operator==(const Fixed &fixed) const;
+    bool operator!=(const Fixed &fixed) const;
+
     int getRawBits(void) const;
     void setRawBits(const int raw);
     float toFloat(void) const;

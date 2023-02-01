@@ -2,6 +2,10 @@
 
 #include "Fixed.hpp"
 
+///////////////////////////////////////////////////////////////////////////////
+// Constructors / Destructor
+///////////////////////////////////////////////////////////////////////////////
+
 Fixed::Fixed() : fixedPointValue(0)
 {
     std::cout << "Default constructor called" << std::endl;
@@ -30,6 +34,13 @@ Fixed::~Fixed()
     std::cout << "Destructor called" << std::endl;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Operators
+//
+// https://en.cppreference.com/w/cpp/language/operators
+//
+///////////////////////////////////////////////////////////////////////////////
+
 Fixed &Fixed::operator=(const Fixed &fixed)
 {
     std::cout << "Assignation operator called" << std::endl;
@@ -39,6 +50,40 @@ Fixed &Fixed::operator=(const Fixed &fixed)
     }
     return *this;
 }
+
+bool Fixed::operator>(const Fixed &fixed) const
+{
+    return this->fixedPointValue > fixed.getRawBits();
+}
+
+bool Fixed::operator<(const Fixed &fixed) const
+{
+    return this->fixedPointValue < fixed.getRawBits();
+}
+
+bool Fixed::operator>=(const Fixed &fixed) const
+{
+    return this->fixedPointValue >= fixed.getRawBits();
+}
+
+bool Fixed::operator<=(const Fixed &fixed) const
+{
+    return this->fixedPointValue <= fixed.getRawBits();
+}
+
+bool Fixed::operator==(const Fixed &fixed) const
+{
+    return this->fixedPointValue == fixed.getRawBits();
+}
+
+bool Fixed::operator!=(const Fixed &fixed) const
+{
+    return this->fixedPointValue != fixed.getRawBits();
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Member functions
+///////////////////////////////////////////////////////////////////////////////
 
 float Fixed::toFloat(void) const
 {
@@ -59,6 +104,10 @@ void Fixed::setRawBits(const int raw)
 {
     this->fixedPointValue = raw;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// Non-Member functions
+///////////////////////////////////////////////////////////////////////////////
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed)
 {
