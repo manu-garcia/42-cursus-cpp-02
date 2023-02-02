@@ -39,6 +39,12 @@ Fixed::~Fixed()
 //
 // https://en.cppreference.com/w/cpp/language/operators
 //
+// Criteria:
+//
+//      Mutability: Member functions could modify the state. Friends should not.
+//      Semantic consistency: c = a + b; // a should not change
+//      Access control: friends cannot access private methods
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 Fixed &Fixed::operator=(const Fixed &fixed)
@@ -49,36 +55,6 @@ Fixed &Fixed::operator=(const Fixed &fixed)
         this->fixedPointValue = fixed.getRawBits();
     }
     return *this;
-}
-
-bool Fixed::operator>(const Fixed &fixed) const
-{
-    return this->fixedPointValue > fixed.getRawBits();
-}
-
-bool Fixed::operator<(const Fixed &fixed) const
-{
-    return this->fixedPointValue < fixed.getRawBits();
-}
-
-bool Fixed::operator>=(const Fixed &fixed) const
-{
-    return this->fixedPointValue >= fixed.getRawBits();
-}
-
-bool Fixed::operator<=(const Fixed &fixed) const
-{
-    return this->fixedPointValue <= fixed.getRawBits();
-}
-
-bool Fixed::operator==(const Fixed &fixed) const
-{
-    return this->fixedPointValue == fixed.getRawBits();
-}
-
-bool Fixed::operator!=(const Fixed &fixed) const
-{
-    return this->fixedPointValue != fixed.getRawBits();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -106,10 +82,60 @@ void Fixed::setRawBits(const int raw)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Non-Member functions
+// Non-Member functions / friends
 ///////////////////////////////////////////////////////////////////////////////
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed)
 {
     return os << fixed.toFloat();
+}
+
+bool operator>(const Fixed &left, const Fixed &right)
+{
+    return left.getRawBits() > right.getRawBits();
+}
+
+bool operator<(const Fixed &left, const Fixed &right)
+{
+    return left.getRawBits() < right.getRawBits();
+}
+
+bool operator>=(const Fixed &left, const Fixed &right)
+{
+    return left.getRawBits() >= right.getRawBits();
+}
+
+bool operator<=(const Fixed &left, const Fixed &right)
+{
+    return left.getRawBits() <= right.getRawBits();
+}
+
+bool operator==(const Fixed &left, const Fixed &right)
+{
+    return left.getRawBits() == right.getRawBits();
+}
+
+bool operator!=(const Fixed &left, const Fixed &right)
+{
+    return left.getRawBits() != right.getRawBits();
+}
+
+Fixed operator+(const Fixed &left, const Fixed &right)
+{
+    return Fixed(left.toFloat() + right.toFloat());
+}
+
+Fixed operator-(const Fixed &left, const Fixed &right)
+{
+    return Fixed(left.toFloat() - right.toFloat());
+}
+
+Fixed operator*(const Fixed &left, const Fixed &right)
+{
+    return Fixed(left.toFloat() * right.toFloat());
+}
+
+Fixed operator/(const Fixed &left, const Fixed &right)
+{
+    return Fixed(left.toFloat() / right.toFloat());
 }
