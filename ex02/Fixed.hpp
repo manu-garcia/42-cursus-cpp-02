@@ -30,22 +30,23 @@ public:
     static const Fixed &min(const Fixed &left, const Fixed &right);
     static const Fixed &max(const Fixed &left, const Fixed &right);
 
-    // https://learn.microsoft.com/en-us/cpp/standard-library/overloading-the-output-operator-for-your-own-classes
-    friend std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
-    friend bool operator>(const Fixed &left, const Fixed &right);
-    friend bool operator<(const Fixed &left, const Fixed &right);
-    friend bool operator>=(const Fixed &left, const Fixed &right);
-    friend bool operator<=(const Fixed &left, const Fixed &right);
-    friend bool operator==(const Fixed &left, const Fixed &right);
-    friend bool operator!=(const Fixed &left, const Fixed &right);
-    friend Fixed operator+(const Fixed &left, const Fixed &right);
-    friend Fixed operator-(const Fixed &left, const Fixed &right);
-    friend Fixed operator*(const Fixed &left, const Fixed &right);
-    friend Fixed operator/(const Fixed &left, const Fixed &right);
-
 private:
     int fixedPointValue;
     static const int fractionalBits = 8;
 };
+
+// https://learn.microsoft.com/en-us/cpp/standard-library/overloading-the-output-operator-for-your-own-classes
+// Although friend keyword is not allowed in the exercise
+std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
+bool operator>(const Fixed &left, const Fixed &right);
+bool operator<(const Fixed &left, const Fixed &right);
+bool operator>=(const Fixed &left, const Fixed &right);
+bool operator<=(const Fixed &left, const Fixed &right);
+bool operator==(const Fixed &left, const Fixed &right);
+bool operator!=(const Fixed &left, const Fixed &right);
+Fixed operator+(const Fixed &left, const Fixed &right);
+Fixed operator-(const Fixed &left, const Fixed &right);
+Fixed operator*(const Fixed &left, const Fixed &right);
+Fixed operator/(const Fixed &left, const Fixed &right);
 
 #endif

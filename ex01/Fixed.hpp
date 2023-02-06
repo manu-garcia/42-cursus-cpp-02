@@ -19,12 +19,13 @@ public:
     float toFloat(void) const;
     int toInt(void) const;
 
-    // https://learn.microsoft.com/en-us/cpp/standard-library/overloading-the-output-operator-for-your-own-classes
-    friend std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
-
 private:
     int fixedPointValue;
     static const int fractionalBits = 8;
 };
+
+// https://learn.microsoft.com/en-us/cpp/standard-library/overloading-the-output-operator-for-your-own-classes
+// Although friend keyword is not allowed in the subject
+std::ostream &operator<<(std::ostream &os, const Fixed &fixed);
 
 #endif
