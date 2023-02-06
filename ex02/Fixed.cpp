@@ -57,6 +57,32 @@ Fixed &Fixed::operator=(const Fixed &fixed)
     return *this;
 }
 
+Fixed &Fixed::operator++()
+{
+    this->fixedPointValue += (1 << this->fractionalBits);
+    return *this;
+}
+
+Fixed Fixed::operator++(int)
+{
+    Fixed copyBeforeIncrement(*this);
+    this->fixedPointValue += (1 << this->fractionalBits);
+    return copyBeforeIncrement;
+}
+
+Fixed &Fixed::operator--()
+{
+    this->fixedPointValue -= (1 << this->fractionalBits);
+    return *this;
+}
+
+Fixed Fixed::operator--(int)
+{
+    Fixed copyBeforeDecrement(*this);
+    this->fixedPointValue -= (1 << this->fractionalBits);
+    return copyBeforeDecrement;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Member functions
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,6 +105,26 @@ int Fixed::getRawBits(void) const
 void Fixed::setRawBits(const int raw)
 {
     this->fixedPointValue = raw;
+}
+
+Fixed &Fixed::min(Fixed &left, Fixed &right)
+{
+    return left < right ? left : right;
+}
+
+Fixed &Fixed::max(Fixed &left, Fixed &right)
+{
+    return left > right ? left : right;
+}
+
+const Fixed &Fixed::min(const Fixed &left, const Fixed &right)
+{
+    return left < right ? left : right;
+}
+
+const Fixed &Fixed::max(const Fixed &left, const Fixed &right)
+{
+    return left > right ? left : right;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
